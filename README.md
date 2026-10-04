@@ -1,53 +1,52 @@
 # 🚢 Titanic Dataset — Exploratory Data Analysis Using Python
 
-
-
-
-
-\
-
-## 📌 Project Overview
-
-This project performs **Exploratory Data Analysis (EDA)** on the famous **Titanic dataset** using Python.
-
-The analysis explores passenger information and investigates how different factors such as **gender, passenger class, age, name titles, and number of siblings/spouses aboard** are related to passenger survival.
-
-The complete analysis is implemented in a Jupyter Notebook using **Pandas, NumPy, Matplotlib, and Seaborn**.
+> **An exploratory data analysis project focused on understanding the factors associated with passenger survival on the Titanic.**
 
 ---
 
-## 🎯 Objectives
+## 📌 About the Project
 
-The main objectives of this project are:
+The **Titanic Dataset — Exploratory Data Analysis (EDA)** project analyzes passenger information from the Titanic dataset using **Python**.
 
-* Understand the structure of the Titanic dataset.
-* Load and inspect the training and testing datasets.
-* Identify missing values.
-* Analyze passenger survival.
-* Explore the relationship between **gender and survival**.
-* Analyze the relationship between **passenger class and survival**.
-* Investigate **age and survival**.
+The project explores how different passenger attributes such as **gender, passenger class, age, passenger titles, and number of siblings/spouses aboard** are associated with survival.
+
+The complete analysis is performed using **Jupyter Notebook** with Python data-analysis and visualization libraries including **Pandas, NumPy, Matplotlib, and Seaborn**.
+
+---
+
+## 🎯 Project Objectives
+
+The major objectives of this project are:
+
+* Understand the structure and characteristics of the Titanic dataset.
+* Load and inspect training and testing datasets.
+* Identify and analyze missing values.
+* Explore overall passenger survival.
+* Analyze the relationship between **gender and survival**.
+* Investigate the impact of **passenger class on survival**.
+* Analyze **age distribution and survival**.
+* Study the combined relationship between **gender, class, age, and survival**.
 * Extract passenger titles from names.
-* Handle missing age values using passenger titles.
-* Analyze the relationship between **SibSp (siblings/spouses aboard)** and survival.
-* Visualize important patterns using different plots.
+* Use passenger titles to handle missing age values.
+* Analyze the relationship between **SibSp and survival**.
+* Create meaningful visualizations to identify patterns and relationships.
 
 ---
 
 ## 📂 Dataset
 
-The project uses two CSV files:
+The project uses the following datasets:
 
-* `train.csv` — Training dataset used for the main analysis.
-* `test.csv` — Test dataset loaded and inspected in the notebook.
+| File        | Description                                  |
+| ----------- | -------------------------------------------- |
+| `train.csv` | Main dataset used for exploratory analysis   |
+| `test.csv`  | Dataset loaded and inspected in the notebook |
 
-The main analysis is performed on `train.csv`.
-
-### Important Features
+### 🔑 Important Features
 
 | Feature    | Description                       |
 | ---------- | --------------------------------- |
-| `Survived` | Survival status                   |
+| `Survived` | Survival status of the passenger  |
 | `Pclass`   | Passenger class                   |
 | `Name`     | Passenger name                    |
 | `Sex`      | Passenger gender                  |
@@ -56,119 +55,113 @@ The main analysis is performed on `train.csv`.
 
 ---
 
-## 🛠️ Technologies & Libraries
+# 🔎 Exploratory Data Analysis
 
-The following Python libraries are used:
+## 1️⃣ Dataset Loading & Inspection
+
+The datasets are loaded using Pandas:
 
 ```python
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sb
+
+train_data = pd.read_csv("train.csv")
+test_data = pd.read_csv("test.csv")
 ```
 
-### Tools
-
-* **Python**
-* **Jupyter Notebook**
-* **Pandas**
-* **NumPy**
-* **Matplotlib**
-* **Seaborn**
+The notebook also examines the dataset structure, dimensions, and initial records.
 
 ---
 
-## 🔍 Exploratory Data Analysis
+## 2️⃣ Missing Value Analysis
 
-### 1. Loading the Dataset
-
-The training and testing datasets are loaded using Pandas:
-
-```python
-train_data = pd.read_csv('train.csv')
-test_data = pd.read_csv('test.csv')
-```
-
-The notebook also checks the current working directory and examines the shape and first few rows of the datasets.
-
----
-
-### 2. Missing Value Analysis
-
-Missing values are checked using:
+Missing values are identified using:
 
 ```python
 train_data.isnull().sum()
 ```
 
-This helps identify columns containing missing or null values.
+This helps determine which columns contain missing data and require further analysis or treatment.
 
 ---
 
-### 3. Survival Analysis
+## 3️⃣ Survival Analysis
 
-A count plot is used to visualize the number of passengers who survived and those who did not.
+The overall survival distribution is analyzed using a count plot.
 
 ```python
-sb.countplot(x='Survived', data=train_data)
+sb.countplot(x="Survived", data=train_data)
 plt.show()
 ```
 
-This provides an initial overview of the survival distribution.
+This provides an initial understanding of the number of passengers who survived and those who did not.
 
 ---
 
-### 4. Gender vs Survival
+## 4️⃣ Gender vs Survival
 
-The notebook investigates the relationship between passenger gender and survival.
+The project investigates the relationship between passenger gender and survival.
 
 ```python
-train_data.groupby(['Sex', 'Survived'])['Survived'].count()
+train_data.groupby(
+    ["Sex", "Survived"]
+)["Survived"].count()
 ```
 
-It also uses visualizations to compare male and female survival:
+A visualization is also created:
 
 ```python
-sb.countplot(x='Sex', hue='Survived', data=train_data)
+sb.countplot(
+    x="Sex",
+    hue="Survived",
+    data=train_data
+)
 plt.show()
 ```
 
-This analysis helps identify differences in survival patterns between genders.
+This allows survival patterns to be compared across male and female passengers.
 
 ---
 
-### 5. Passenger Class vs Survival
+## 5️⃣ Passenger Class vs Survival
 
-The relationship between passenger class and survival is explored using:
+Passenger class is analyzed to understand its relationship with survival.
+
+The three passenger classes are:
+
+* **1st Class**
+* **2nd Class**
+* **3rd Class**
+
+Visualization:
 
 ```python
-sb.countplot(x='Pclass', hue='Survived', data=train_data)
-plt.title('Pclass: Survived vs Dead')
+sb.countplot(
+    x="Pclass",
+    hue="Survived",
+    data=train_data
+)
+
+plt.title("Pclass: Survived vs Dead")
 plt.show()
 ```
 
-The analysis considers:
-
-* 1st Class
-* 2nd Class
-* 3rd Class
-
-A cross-tabulation is also used to examine the interaction between gender, survival, and passenger class.
+The analysis also examines the interaction between **passenger class, gender, and survival**.
 
 ---
 
-### 6. Passenger Class, Gender & Survival
+## 6️⃣ Passenger Class + Gender + Survival
 
-A point plot is used to examine the relationship between passenger class, gender, and survival probability:
+A categorical point plot is used to analyze survival patterns across passenger class and gender.
 
 ```python
 sb.catplot(
-    x='Pclass',
-    y='Survived',
-    hue='Sex',
+    x="Pclass",
+    y="Survived",
+    hue="Sex",
     data=train_data,
-    kind='point'
+    kind="point"
 )
+
 plt.show()
 ```
 
@@ -176,75 +169,95 @@ This provides a combined view of three important variables.
 
 ---
 
-### 7. Age Analysis
+# 🎂 Age Analysis
 
-The notebook examines the ages of passengers who survived.
+## 7️⃣ Age of Surviving Passengers
 
-It calculates:
+The project analyzes the age distribution of passengers who survived.
 
-* Maximum age among survivors
-* Minimum age among survivors
-* Average age among survivors
+The following values are calculated:
+
+* Oldest surviving passenger
+* Youngest surviving passenger
+* Average age of surviving passengers
 
 ```python
-survived_df = train_data[train_data['Survived'] == 1]
+survived_df = train_data[
+    train_data["Survived"] == 1
+]
 
-print('Oldest person Survived was of:', survived_df['Age'].max())
-print('Youngest person Survived was of:', survived_df['Age'].min())
-print('Average person Survived was of:', survived_df['Age'].mean())
+print(
+    "Oldest person Survived was of:",
+    survived_df["Age"].max()
+)
+
+print(
+    "Youngest person Survived was of:",
+    survived_df["Age"].min()
+)
+
+print(
+    "Average person Survived was of:",
+    survived_df["Age"].mean()
+)
 ```
 
 ---
 
-### 8. Age, Passenger Class & Gender
+## 8️⃣ Age + Passenger Class + Survival
 
-Violin plots are used to visualize the relationship between age, passenger class, gender, and survival.
+Violin plots are used to analyze the relationship between:
+
+**Passenger Class + Age + Survival**
 
 ```python
 sb.violinplot(
-    x='Pclass',
-    y='Age',
-    hue='Survived',
+    x="Pclass",
+    y="Age",
+    hue="Survived",
     data=train_data,
     split=True
 )
 ```
 
-A similar visualization is created for:
-
-```text
-Sex vs Age vs Survived
-```
-
-These visualizations provide a more detailed understanding of the distribution of passenger ages.
+This visualization helps examine the distribution of passenger ages across different classes and survival groups.
 
 ---
 
-## 👤 Passenger Title Analysis
+# 👤 Passenger Title Analysis
 
-One interesting part of the project is extracting titles from passenger names.
+## 9️⃣ Extracting Titles from Passenger Names
 
-The notebook extracts titles such as:
+Passenger titles are extracted from the `Name` column.
 
-* Mr
-* Mrs
-* Miss
-* Master
-* Dr
-* Major
-* Lady
-* Countess
-* Rev
-* Sir
-* Other
+Examples include:
 
-The title is extracted from the `Name` column using:
+* `Mr`
+* `Mrs`
+* `Miss`
+* `Master`
+* `Dr`
+* `Major`
+* `Lady`
+* `Countess`
+* `Rev`
+* `Sir`
+* `Other`
+
+The title is extracted using:
 
 ```python
-train_data['Initial'] = train_data.Name.str.extract('([A-Za-z]+)\.')
+train_data["Initial"] = train_data.Name.str.extract(
+    "([A-Za-z]+)\\."
+)
 ```
 
-Rare titles are then grouped into broader categories such as `Mr`, `Mrs`, `Miss`, and `Other`.
+Rare titles are grouped into broader categories such as:
+
+* `Mr`
+* `Mrs`
+* `Miss`
+* `Other`
 
 This creates a new feature:
 
@@ -254,19 +267,19 @@ Initial
 
 ---
 
-## 🧹 Handling Missing Age Values
+# 🧹 Handling Missing Age Values
 
-The notebook uses passenger titles to estimate missing age values.
+Passenger titles are used to help estimate missing age values.
 
-Different average ages are assigned to different title groups:
+The project uses the following filled ages:
 
-| Title  | Filled Age |
-| ------ | ---------: |
-| Mr     |         33 |
-| Mrs    |         36 |
-| Master |          5 |
-| Miss   |         22 |
-| Other  |         46 |
+| Title    | Filled Age |
+| -------- | ---------: |
+| `Mr`     |         33 |
+| `Mrs`    |         36 |
+| `Master` |          5 |
+| `Miss`   |         22 |
+| `Other`  |         46 |
 
 After filling the missing values, the notebook checks whether any missing age values remain:
 
@@ -276,62 +289,60 @@ train_data.Age.isnull().any()
 
 ---
 
-## 📊 Age Distribution by Survival
+# 📊 Age Distribution by Survival
 
-The project compares the age distribution of passengers who:
+The project compares the age distribution between:
 
-* Did not survive
-* Survived
+* Passengers who **survived**
+* Passengers who **did not survive**
 
-Histograms are used to visualize these distributions.
-
-This helps understand how passenger age was distributed across the two survival groups.
+Histograms are used to visualize the two groups and understand their age distributions.
 
 ---
 
-## 👨‍👩‍👧 SibSp vs Survival
+# 👨‍👩‍👧 SibSp Analysis
 
-`SibSp` represents the number of siblings or spouses aboard the Titanic.
+`SibSp` represents the **number of siblings or spouses aboard the Titanic**.
 
-The notebook analyzes the relationship between `SibSp` and survival using:
+The project examines the relationship between `SibSp` and survival using:
 
 * Cross-tabulation
-* Bar plot
-* Point plot
+* Bar plots
+* Point plots
 
 Example:
 
 ```python
 sb.barplot(
-    x='SibSp',
-    y='Survived',
+    x="SibSp",
+    y="Survived",
     data=train_data
 )
 ```
 
-The notebook also examines the relationship between `SibSp` and passenger class.
+The relationship between **SibSp and passenger class** is also examined.
 
 ---
 
-## 📈 Visualizations Used
+# 📈 Visualizations
 
-The project uses several visualization techniques, including:
+The project uses multiple visualization techniques to understand the dataset.
 
-* 📊 Count Plot
-* 📊 Bar Plot
-* 📈 Point Plot
-* 🎻 Violin Plot
-* 📊 Histogram
-* 📋 Cross-tabulation
-* 📌 Categorical Point Plot
-
-These visualizations make it easier to identify relationships and patterns in the dataset.
+| Visualization             | Analysis                                   |
+| ------------------------- | ------------------------------------------ |
+| 📊 Count Plot             | Survival and categorical comparisons       |
+| 📊 Bar Plot               | SibSp and survival                         |
+| 📍 Point Plot             | Survival relationships                     |
+| 🎻 Violin Plot            | Age distribution                           |
+| 📊 Histogram              | Age distribution by survival               |
+| 📋 Cross-tabulation       | Relationship between categorical variables |
+| 📍 Categorical Point Plot | Class, gender and survival                 |
 
 ---
 
-## 💡 Key Areas of Analysis
+# 🔗 Key Analysis Areas
 
-The notebook primarily focuses on these relationships:
+The major relationships explored in this project are:
 
 ```text
 Gender ──────────────► Survival
@@ -355,57 +366,84 @@ SibSp ───────────────► Passenger Class
 
 ---
 
-## 📁 Project Structure
+# 🛠️ Technologies & Tools
+
+### Programming Language
+
+* 🐍 **Python**
+
+### Libraries
+
+* **Pandas** — Data manipulation and analysis
+* **NumPy** — Numerical operations
+* **Matplotlib** — Data visualization
+* **Seaborn** — Statistical visualization
+
+### Development Environment
+
+* **Jupyter Notebook**
+
+---
+
+# 📁 Project Structure
 
 ```text
 Titanic-EDA/
 │
-├── EDA_of_Titanic_Dataset.ipynb
-├── train.csv
-├── test.csv
-├── README.md
-└── requirements.txt
+├── 📓 EDA_of_Titanic_Dataset.ipynb
+│
+├── 📊 train.csv
+│
+├── 📊 test.csv
+│
+├── 📄 README.md
+│
+└── 📦 requirements.txt
 ```
 
 ---
 
-## ⚙️ Installation
+# ⚙️ How to Run the Project
 
-Clone the repository:
+## 1. Clone the Repository
 
 ```bash
 git clone https://github.com/YOUR-USERNAME/Titanic-EDA.git
 ```
 
-Move into the project directory:
+## 2. Open the Project Directory
 
 ```bash
 cd Titanic-EDA
 ```
 
-Install the required libraries:
+## 3. Install Dependencies
 
 ```bash
-pip install numpy pandas matplotlib seaborn jupyter
+pip install -r requirements.txt
 ```
 
-Launch Jupyter Notebook:
+## 4. Launch Jupyter Notebook
 
 ```bash
 jupyter notebook
 ```
 
-Then open:
+## 5. Open the Notebook
+
+Open:
 
 ```text
 EDA_of_Titanic_Dataset.ipynb
 ```
 
+Run the notebook cells sequentially to reproduce the analysis.
+
 ---
 
-## 📦 Requirements
+# 📦 Requirements
 
-Create a `requirements.txt` file containing:
+The project requires the following Python libraries:
 
 ```text
 numpy
@@ -417,65 +455,89 @@ jupyter
 
 ---
 
-## 🧠 What I Learned
+# 🧠 Skills Demonstrated
 
-Through this project, I practiced:
+This project demonstrates practical skills in:
 
-* Loading datasets using Pandas
-* Understanding dataset dimensions
-* Inspecting DataFrames
-* Detecting missing values
-* Grouping and aggregating data
-* Creating cross-tabulations
-* Feature extraction from text
-* Handling missing data
-* Creating different data visualizations
-* Exploring relationships between multiple variables
-* Performing Exploratory Data Analysis using Python
+* Python Programming
+* Data Cleaning
+* Data Inspection
+* Exploratory Data Analysis
+* Missing Value Analysis
+* Data Aggregation
+* GroupBy Operations
+* Cross-tabulation
+* Feature Extraction
+* Feature Transformation
+* Data Visualization
+* Statistical Exploration
+* Analytical Thinking
 
 ---
 
-## 🚀 Future Improvements
+# 📚 Key Learning Outcomes
 
-The current project focuses on **Exploratory Data Analysis**.
+Through this project, I gained practical experience in:
+
+* Working with real-world datasets.
+* Understanding dataset structure and variables.
+* Identifying missing data.
+* Performing exploratory analysis using Pandas.
+* Extracting useful information from text data.
+* Creating new features from existing columns.
+* Handling missing values.
+* Comparing categorical variables.
+* Creating meaningful visualizations.
+* Interpreting relationships between different variables.
+
+---
+
+# 🚀 Future Improvements
+
+This project currently focuses on **Exploratory Data Analysis**.
 
 Possible future improvements include:
 
-* Feature engineering
+* Advanced feature engineering
 * Data preprocessing
 * Encoding categorical variables
 * Correlation analysis
-* Building a machine learning model
-* Predicting passenger survival
-* Comparing different classification algorithms
-* Evaluating model performance
+* Feature selection
+* Machine Learning model development
+* Passenger survival prediction
+* Classification algorithm comparison
+* Model evaluation
+* Hyperparameter tuning
 
 ---
 
-## 👨‍💻 Author
+# 👨‍💻 Author
 
-**Mohd Arsalan**
+### **Mohd Arsalan**
 
-BCA — Data Science & Artificial Intelligence
+🎓 **BCA – Data Science & Artificial Intelligence**
+🏫 **Babu Banarasi Das University, Lucknow**
 
-Babu Banarasi Das University, Lucknow
-
-### Skills
+### Technical Skills
 
 `Python` • `SQL` • `Pandas` • `NumPy` • `Matplotlib` • `Seaborn` • `Power BI` • `Excel`
 
 ---
 
-## ⭐ Project Status
+# 📌 Project Status
 
-**Status:** Completed — Exploratory Data Analysis
+🟢 **Completed — Exploratory Data Analysis**
 
-This repository represents my practical work in **Python-based Data Analysis and Visualization**.
+This project represents practical work in **Python-based Data Analysis and Data Visualization**.
 
-If you found this project useful, consider giving the repository a ⭐.
+---
+
+# ⭐ Support
+
+If you found this project useful or informative, consider giving the repository a ⭐ on GitHub.
 
 ---
 
 ## 📜 License
 
-This project is intended for **educational and learning purposes**.
+This project is created for **educational and learning purposes**.
